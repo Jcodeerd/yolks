@@ -1,4 +1,4 @@
-name: build postgres
+name: build keydb
 on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -8,22 +8,18 @@ on:
     branches:
       - master
     paths:
-      - postgres/**
+      - keydb/**
 jobs:
   push:
-    name: "yolks:postgres_${{ matrix.tag }}"
+    name: "yolks:keydb_${{ matrix.tag }}"
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
         tag:
-          - 9
-          - 10
-          - 11
-          - 12
-          - 13
-          - 14
-          - 16
+          - 5
+          - 6
+          - 7
     steps:
       - uses: actions/checkout@v4
       - uses: docker/setup-qemu-action@v3
@@ -37,9 +33,9 @@ jobs:
           password: ${{ secrets.REGISTRY_TOKEN }}
       - uses: docker/build-push-action@v5
         with:
-          context: ./postgres
-          file: ./postgres/${{ matrix.tag }}/Dockerfile
+          context: ./keydb
+          file: ./keydb/${{ matrix.tag }}/Dockerfile
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
-            ghcr.io/jcodeerd/yolks:postgres_${{ matrix.tag }}
+            ghcr.io/jcodeerd/yolks:keydb_${{ matrix.tag }}
