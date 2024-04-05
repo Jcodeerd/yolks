@@ -1,7 +1,7 @@
 # ----------------------------------
-# Environment: redis
+# Environment: keydb
 # ----------------------------------
-FROM    --platform=$TARGETOS/$TARGETARCH redis:7-bookworm
+FROM    --platform=$TARGETOS/$TARGETARCH eqalpha:keydb
 
 LABEL   author="Michael Parker" maintainer="parker@pterodactyl.io"
 
